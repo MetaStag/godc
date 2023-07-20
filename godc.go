@@ -1,8 +1,5 @@
 package main
 
-// - readme + github
-// - discord
-
 import (
 	"bufio"   // to get input
 	"fmt"     // to print
