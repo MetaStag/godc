@@ -65,40 +65,40 @@ func main() {
 		for i := 0; i < len(input); i++ {
 			// Commands
 			if input[i] == "?" {
-				fmt.Println("BASICS")
-				fmt.Println("<num> - Add number to stack")
-				fmt.Println("+-*/ - Basic Arithmetic")
-				fmt.Println(`% - Modulo`)
-				fmt.Println("~ - Quotient+remainder")
-				fmt.Println("^ - Exponentiation")
-				fmt.Println("| - Modular Exponentiation")
-				fmt.Println("v - Square Root")
-				fmt.Println("[ commands ] - Add string (macro) to stack")
-				fmt.Println("STACK CONTROL")
-				fmt.Println("p - Print top of stack")
-				fmt.Println("n - Print+Pop top of stack")
-				fmt.Println("f - Print full stack (topmost element at bottom)")
-				fmt.Println("c - clear stack")
-				fmt.Println("d - duplicate top element")
-				fmt.Println("r - Swap top 2 elements")
-				fmt.Println("R - Cyclically rotate no. of items equal to top of stack")
-				fmt.Println("z - Push length of stack")
-				fmt.Println("REGISTERS/MACROS")
-				fmt.Println("s(x) - Push top of stack into register x (can be any letter)")
-				fmt.Println("l(x) - Copy register x (any letter) onto stack")
-				fmt.Println("x - Execute macro at top of stack")
-				fmt.Println("Q - Break out of macro loop, does not quit program")
-				fmt.Println("=m - If top 2 elements are equal, execute macro m. Note that instead of equals, >, <, !>, !<, != are also supported (reverse order of operands)")
-				fmt.Println("HELP")
-				fmt.Println("#(anything) - Comments")
-				fmt.Println("clear - Clear screen")
-				fmt.Println("q - Quit Program")
+				fmt.Println(`BASICS
+<num> - Add number to stack
++-*/ - Basic Arithmetic
+% - Modulo
+~ - Quotient+remainder
+^ - Exponentiation
+| - Modular Exponentiation
+v - Square Root
+[ commands ] - Add string (macro) to stack
+STACK CONTROL
+p - Print top of stack
+n - Print+Pop top of stack
+f - Print full stack (topmost element at bottom)
+c - clear stack
+d - duplicate top element
+r - Swap top 2 elements
+R - Cyclically rotate no. of items equal to top of stack
+z - Push length of stack
+REGISTERS/MACROS
+s(x) - Push top of stack into register x (can be any letter)
+l(x) - Copy register x (any letter) onto stack
+x - Execute macro at top of stack
+Q - Break out of macro loop, does not quit program
+=m - If top 2 elements are equal, execute macro m. Note that instead of equals, >, <, !>, !<, != are also supported (reverse order of operands)
+HELP
+#(anything) - Comments
+clear - Clear screen
+q - Quit Program`)
 
-				// Add numbers
+			// Add numbers
 			} else if num, err := strconv.ParseFloat(input[i], 64); err == nil {
 				stack = append(stack, num)
 
-				// Add strings
+			// Add strings
 			} else if input[i] == "[" {
 				secondIndex := search(input, "]")
 				if secondIndex == -1 {
@@ -109,7 +109,7 @@ func main() {
 				stack = append(stack, temp)
 				break
 
-				// Printing
+			// Printing
 			} else if input[i] == "p" {
 				if len(stack) > 0 {
 					fmt.Println(stack[len(stack)-1])
@@ -124,7 +124,7 @@ func main() {
 					fmt.Println(element)
 				}
 
-				// Stack control
+			// Stack control
 			} else if input[i] == "c" {
 				stack = nil
 			} else if input[i] == "d" {
@@ -163,7 +163,7 @@ func main() {
 			} else if input[i] == "z" {
 				stack = append(stack, float64(len(stack)))
 
-				// Registers
+			// Registers
 			} else if strings.HasPrefix(input[i], "s") {
 				if len(input[i]) < 2 {
 					fmt.Println("godc: invalid command")
@@ -184,6 +184,7 @@ func main() {
 				} else {
 					fmt.Println("godc: stack empty")
 				}
+							
 			} else if strings.HasPrefix(input[i], "l") {
 				if len(input[i]) < 2 {
 					fmt.Println("godc: invalid command")
@@ -196,7 +197,7 @@ func main() {
 					fmt.Println("godc: register empty")
 				}
 
-				// Execute Macros (strings)
+			// Execute Macros (strings)
 			} else if input[i] == "x" {
 				if len(stack) == 0 {
 					fmt.Println("godc: stack empty")
@@ -214,7 +215,7 @@ func main() {
 			} else if input[i] == "Q" {
 				break
 
-				// Conditionals
+			// Conditionals
 			} else if command := search(conditionals[:], input[i][:len(input[i])-1]); command != -1 {
 				var flag bool
 				if len(stack) < 2 {
@@ -223,30 +224,30 @@ func main() {
 				}
 				name := input[i][len(input[i])-1]
 				switch conditionals[command] {
-				case "=":
-					if stack[len(stack)-1] == stack[len(stack)-2] {
-						flag = true
-					}
-				case ">":
-					if stack[len(stack)-1].(float64) > stack[len(stack)-2].(float64) {
-						flag = true
-					}
-				case "<":
-					if stack[len(stack)-1].(float64) < stack[len(stack)-2].(float64) {
-						flag = true
-					}
-				case "!>":
-					if stack[len(stack)-1].(float64) < stack[len(stack)-2].(float64) {
-						flag = true
-					}
-				case "!<":
-					if stack[len(stack)-1].(float64) > stack[len(stack)-2].(float64) {
-						flag = true
-					}
-				case "!=":
-					if stack[len(stack)-1] != stack[len(stack)-2] {
-						flag = true
-					}
+					case "=":
+						if stack[len(stack)-1] == stack[len(stack)-2] {
+							flag = true
+						}
+					case ">":
+						if stack[len(stack)-1].(float64) > stack[len(stack)-2].(float64) {
+							flag = true
+						}
+					case "<":
+						if stack[len(stack)-1].(float64) < stack[len(stack)-2].(float64) {
+							flag = true
+						}
+					case "!>":
+						if stack[len(stack)-1].(float64) < stack[len(stack)-2].(float64) {
+							flag = true
+						}
+					case "!<":
+						if stack[len(stack)-1].(float64) > stack[len(stack)-2].(float64) {
+							flag = true
+						}
+					case "!=":
+						if stack[len(stack)-1] != stack[len(stack)-2] {
+							flag = true
+						}
 				default:
 					return
 				}
@@ -267,7 +268,7 @@ func main() {
 				}
 				stack = stack[:len(stack)-2]
 
-				// Arithmetic
+			// Arithmetic
 			} else if input[i] == "+" {
 				if len(stack) > 1 {
 					result := stack[len(stack)-2].(float64) + stack[len(stack)-1].(float64)
@@ -342,7 +343,7 @@ func main() {
 					fmt.Println("godc: stack empty")
 				}
 
-				// Helper commmands
+			// Helper commmands
 			} else if input[i] == "#" {
 				break
 			} else if input[i] == "clear" {
