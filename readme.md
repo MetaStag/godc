@@ -7,6 +7,8 @@ dc is a very old **reverse-polish notation** calculator, written even before the
 
 In reverse-polish notation, instead of writing `2 + 2`, you write `2 2 +`. The operator comes later, while awkward at first glance, it can help avoid confusion at times
 
+All commands **must be space seperated**, the only exception is conditional commands, like `=m`
+
 ---
 
 ### Features
